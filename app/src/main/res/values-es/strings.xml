@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Firebase Auth</string>
+    <string name="action_sign_in_short">Registrarse</string>
+    <string name="auth_failed">La Autentificaciòn falló, cheque su email y contraseña o registresé.</string>
+    <string name="btn_change">Cambiar</string>
+    <string name="btn_forgot_password">Ólvido su Contraseña?</string>
+    <string name="btn_link_to_login">Ya regitrado? Loguearse</string>
+    <string name="btn_link_to_register">No registrado? Registrese ahora mismo</string>
+    <string name="btn_login">LOGUEARSE</string>
+    <string name="btn_remove">REMOVER</string>
+    <string name="btn_reset_password">Resetear Contraseña</string>
+    <string name="btn_send">Enviar</string>
+    <string name="btn_sign_out">Desloguear</string>
+    <string name="change_email">Cambiar Email</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="email">Mail</string>
+    <string name="forgot_password_msg">Necesitamos que ingrese su Mail para enviarle las intrucciones de reinicio de su Contraseña.</string>
+    <string name="hint_email">Mail</string>
+    <string name="hint_name">Nombre Completo</string>
+    <string name="hint_new_email">Nuevo Mail</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="lbl_forgot_password">Olvido su contraseña?</string>
+    <string name="minimum_password">Contraseña demasiado corta, ingrese al menos 6 carácteres.</string>
+    <string name="new_pass">Nueva Contraseña</string>
+    <string name="remove_user">Remover Cuenta</string>
+    <string name="send_password_reset_email">Enviar Mail para reinicio de contraseña</string>
+    <string name="title_activity_login">Loguearse</string>
+    <string name="title_activity_profile">Firebase</string>
+    <string name="title_activity_reset_password"></string>
+    <string name="common_signin_button_text_long">Loguearse con Google</string>
+</resources>
