@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Firebase Auth</string>
+    <string name="app_name">Rol Players</string>
     <string name="action_sign_in_short">Registrarse</string>
     <string name="auth_failed">La Autentificaciòn falló, cheque su email y contraseña o registresé.</string>
     <string name="btn_change">Cambiar</string>
