@@ -25,6 +25,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import rolplayer.rolmanager.com.rolplayer.services.RolMediaSingleton;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
@@ -264,6 +266,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    private void probarGET(){
+       // RolMediaSingleton.getInstance(context).addToRequestQueue(jsArrayRequest)
+    }
+
+
 
     //sign out method
     public void signOut() {
