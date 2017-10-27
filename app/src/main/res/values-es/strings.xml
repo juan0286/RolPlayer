@@ -29,4 +29,5 @@
     <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_reset_password"></string>
     <string name="common_signin_button_text_long">Loguearse con Google</string>
+    <string name="repite_password">Repeat Password</string>
 </resources>

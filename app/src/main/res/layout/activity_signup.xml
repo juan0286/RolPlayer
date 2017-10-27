@@ -23,6 +23,16 @@
             android:src="@mipmap/ic_launcher" />
 
 
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_name"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white" />
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -32,6 +42,8 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@android:color/white" />
+
+
 
             <EditText
                 android:id="@+id/password"
@@ -46,6 +58,19 @@
                 android:singleLine="true"
                 android:textColor="@android:color/white" />
 
+
+        <EditText
+            android:id="@+id/passwordRepite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="@string/repite_password"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/sign_up_button"

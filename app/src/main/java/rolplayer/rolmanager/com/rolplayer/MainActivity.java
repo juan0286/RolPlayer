@@ -3,11 +3,9 @@ package rolplayer.rolmanager.com.rolplayer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,18 +16,17 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import rolplayer.rolmanager.com.rolplayer.services.RolMediaSingleton;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
+
+    private static final String URL_BASE = "https://jsonplaceholder.typicode.com/";
+    private static final String URL_COMPLEMENTO = "posts/1";
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
             changeEmail, changePassword, sendEmail, remove, signOut;
@@ -265,11 +262,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button pruebaGet = (Button) findViewById(R.id.probarRest);
+
+        pruebaGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                probarRest();
+            }
+        });
+
     }
 
 
-    private void probarGET(){
-       // RolMediaSingleton.getInstance(context).addToRequestQueue(jsArrayRequest)
+    private void probarRest(){
+
+//        NuevoJugadorService n = new NuevoJugadorService();
+//        JsonRequest a = n.llamadaporGet();
+
+        // Mapeo de los pares clave-valor
+
+        //String URL_BASE = "https://jsonplaceholder.typicode.com/";
+
+        Intent i = new Intent(MainActivity.this,PruebasRestFull.class);
+        startActivity(i);
+
+
     }
 
 
