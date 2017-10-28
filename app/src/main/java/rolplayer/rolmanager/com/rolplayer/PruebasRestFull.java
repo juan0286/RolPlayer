@@ -65,7 +65,7 @@ public class PruebasRestFull extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                probarPost();
+                probarSaveJugadorCore();
             }
         });
 
@@ -119,6 +119,51 @@ public class PruebasRestFull extends AppCompatActivity {
         RolMediaSingleton.getInstance(this).getRequestQueue().add(jsArrayRequest);
     }
 
+    void probarSaveJugadorCore() {
+        String URL_COMPLEMENTO = "newuserjugador";
+        // debe recibir json Jugador
+        final String tag = "Registro en Core";
+
+        JsonObjectRequest jsArrayRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                getString(R.string.URL_BASE) + URL_COMPLEMENTO,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(PruebasRestFull.this, "Guardado Correcto", Toast.LENGTH_SHORT).show();
+                        Log.d(tag, "Respuesta Volley:" + response.toString());
+                        // Manejo de la respuesta
+                        // notifyDataSetChanged();
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(PruebasRestFull.this, "Guardado Fallo", Toast.LENGTH_SHORT).show();
+                        Log.d(tag, "Respuesta FALLO: " + error.toString());
+
+                    }
+                }) {
+            @Override
+            public byte[] getBody() {
+                NuevoUsuarioJugador nuj = new NuevoUsuarioJugador();
+                nuj.setEmail("asas");
+                nuj.setName("sasafff");
+                nuj.setId_firebase("adsdafasdfds");
+
+                String httpPostBody = nuj.toJson();
+
+                return httpPostBody.getBytes();
+            }
+        };
+
+        RolMediaSingleton.getInstance(this).getRequestQueue().add(jsArrayRequest);
+
+    }
+
+
+
     void probarPUT() {
 
 
@@ -143,51 +188,6 @@ public class PruebasRestFull extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(PruebasRestFull.this, "FALLO DE REST PUT!", Toast.LENGTH_SHORT).show();
                         Log.d("RESPUESTA DE REST PUT", "Respuesta FALLO: " + error.toString());
-
-                    }
-                }) {
-            @Override
-            public byte[] getBody() {
-                String httpPostBody = "grant_type=password&username=Alice&password=password123";
-                // usually you'd have a field with some values you'd want to escape, you need to do it yourself if overriding getBody. here's how you do it
-                try {
-                    httpPostBody = httpPostBody + "&randomFieldFilledWithAwkwardCharacters=" + URLEncoder.encode("{{%stuffToBe Escaped/", "UTF-8");
-                } catch (UnsupportedEncodingException exception) {
-                    Log.e("ERROR", "exception", exception);
-                    // return null and don't pass any POST string if you encounter encoding error
-                    return null;
-                }
-                return httpPostBody.getBytes();
-            }
-        };
-
-        RolMediaSingleton.getInstance(this).getRequestQueue().add(jsArrayRequest);
-    }
-
-    void probarPost() {
-
-
-        String URL_COMPLEMENTO = "postnuevoJugador";
-        // enviar un NuevoUsuarioJugador e el body ?????
-
-        JsonObjectRequest jsArrayRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                URL_BASE + URL_COMPLEMENTO,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(PruebasRestFull.this, "POST SUCCESS!", Toast.LENGTH_SHORT).show();
-                        Log.d("RESPUESTA DE REST POST", "Respuesta Volley:" + response.toString());
-                        // Manejo de la respuesta
-                        // notifyDataSetChanged();
-                    }
-                },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(PruebasRestFull.this, "FALLO DE POST!", Toast.LENGTH_SHORT).show();
-                        Log.d("RESPUESTA DE REST POST", "Respuesta FALLO: " + error.toString());
 
                     }
                 }) {
