@@ -1,0 +1,9 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="Java">
+        <added pattern="rolplayer.rolmanager.com.rolplayer.services.GsonRequest.GsonRequest(url,clazz,headers,listener,errorListener)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>
