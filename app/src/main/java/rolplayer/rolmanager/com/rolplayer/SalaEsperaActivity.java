@@ -253,7 +253,6 @@ public class SalaEsperaActivity extends AppCompatActivity {
             editor.commit();
             cargarDatos();
         }
-        btn_act.setEnabled(true);
         showProgress(false);
     }
 
@@ -320,7 +319,6 @@ public class SalaEsperaActivity extends AppCompatActivity {
 
     public void call_loginJugadorEnCore(View v) {
         showProgress(true);
-        btn_act.setEnabled(false);
         String URL_COMPLEMENTO = "loginjugador";
         // debe recibir json Jugador
         final String tag = "Registro en Core";

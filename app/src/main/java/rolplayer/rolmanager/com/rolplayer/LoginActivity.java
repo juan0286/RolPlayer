@@ -220,7 +220,6 @@ public class LoginActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             firebaseAuthWithGoogle(acct);
             Log.d(TAG, "Obtuvo credencial Google :success Id: " + acct.getId());
-
             updateUI(null);
         } else {
             //Usuario no logueado --> Lo mostramos como "Desconectado"
@@ -296,8 +295,8 @@ public class LoginActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-
-                                updateUI(firebaseUser);
+                            firebaseUser = firebaseAuth.getCurrentUser();
+                               // updateUI(firebaseUser);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -348,6 +347,15 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void updateUI(FirebaseUser user) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if (firebaseUser == null){
+            firebaseUser = firebaseAuth.getCurrentUser();
+        }
         //hideProgressDialog();
         SharedPreferences prefs =
                 getSharedPreferences("usuario", Context.MODE_PRIVATE);
