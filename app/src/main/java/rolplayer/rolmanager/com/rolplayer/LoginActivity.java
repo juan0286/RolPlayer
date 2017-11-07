@@ -1,5 +1,8 @@
 package rolplayer.rolmanager.com.rolplayer;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
@@ -7,6 +10,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +27,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -41,6 +44,12 @@ public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final String ARG_PARAM1 = "name";
+    private static final String ARG_PARAM2 = "user";
+    private static final String ARG_PARAM3 = "mail";
+    private static final String ARG_PARAM4 = "id";
+    private static final String ARG_PARAM5 = "url";
+
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -50,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 100;
 
     private Activity activity;
+
+    View mProgressView,searchFormView;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -64,12 +75,15 @@ public class LoginActivity extends AppCompatActivity implements
 
         activity = this;
 
+        searchFormView = findViewById(R.id.layoutLogin);
+        mProgressView = findViewById(R.id.login_progress);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
 //
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestProfile()
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .build();
 
@@ -79,7 +93,8 @@ public class LoginActivity extends AppCompatActivity implements
                 .build();
 
         if (firebaseUser != null) {
-            startActivity(new Intent(activity, MainActivity.class));
+            showProgress(true);
+            updateUI(firebaseUser);
             return;
         }
 
@@ -136,45 +151,45 @@ public class LoginActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(mAuthListener);
-        SharedPreferences prefs =
-                getSharedPreferences("usuario", Context.MODE_PRIVATE);
-
-        final boolean usarCredencial = prefs.getBoolean("logueado", false);
-
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-            if (opr.isDone()) {
-                GoogleSignInResult result = opr.get();
-                if (usarCredencial) {
-                    handleSignInResult(result);
-                } else {
-                    //logoutGoogle();
-                }
-            } else {
-                //showProgress(true);
-                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                    @Override
-                    public void onResult(GoogleSignInResult googleSignInResult) {
-                        //showProgress(false);
-                        if (googleSignInResult.isSuccess()) {
-                            if (usarCredencial) {
-                                handleSignInResult(googleSignInResult);
-                            } else {
-                                logoutGoogle();
-                            }
-                        }
-                    }
-                });
-            }
-
-
-
-
-
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        firebaseAuth.addAuthStateListener(mAuthListener);
+//        SharedPreferences prefs =
+//                getSharedPreferences("usuario", Context.MODE_PRIVATE);
+//
+//        final boolean usarCredencial = prefs.getBoolean("logueado", false);
+//
+//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+//            if (opr.isDone()) {
+//                GoogleSignInResult result = opr.get();
+//                if (usarCredencial) {
+//                    handleSignInResult(result);
+//                } else {
+//                    //logoutGoogle();
+//                }
+//            } else {
+//                //showProgress(true);
+//                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//                    @Override
+//                    public void onResult(GoogleSignInResult googleSignInResult) {
+//                        //showProgress(false);
+//                        if (googleSignInResult.isSuccess()) {
+//                            if (usarCredencial) {
+//                                handleSignInResult(googleSignInResult);
+//                            } else {
+//                                logoutGoogle();
+//                            }
+//                        }
+//                    }
+//                });
+//            }
+//
+//
+//
+//
+//
+//    }
 
 
     public void logoutGoogle() {
@@ -228,12 +243,6 @@ public class LoginActivity extends AppCompatActivity implements
         if (mGoogleApiClient != null) {
             mGoogleApiClient.disconnect();
         }
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
         final Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -262,9 +271,7 @@ public class LoginActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        startActivity(intent);
+                        updateUI(firebaseUser);
                         finish();
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
@@ -290,7 +297,6 @@ public class LoginActivity extends AppCompatActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
 
-//                            linkearCuenta(credential);
                                 updateUI(firebaseUser);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -303,27 +309,6 @@ public class LoginActivity extends AppCompatActivity implements
                         // [START_EXCLUDE]
                         //hideProgressDialog();
                         // [END_EXCLUDE]
-                    }
-                });
-    }
-
-    private void linkearCuenta(AuthCredential credential) {
-        firebaseAuth.getCurrentUser().linkWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "linkWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
-                            updateUI(user);
-                        } else {
-                            Log.w(TAG, "linkWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        // ...
                     }
                 });
     }
@@ -375,9 +360,17 @@ public class LoginActivity extends AppCompatActivity implements
         */
         editor.commit();
 
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(LoginActivity.this, SalaEsperaActivity.class);
+
+        editor.putString(ARG_PARAM1, firebaseUser.getDisplayName());
+        editor.putString(ARG_PARAM2, firebaseUser.getEmail());
+        editor.putString(ARG_PARAM3, firebaseUser.getEmail());
+        editor.putString(ARG_PARAM4, firebaseUser.getUid());
+        editor.putString(ARG_PARAM5, firebaseUser.getPhotoUrl().toString());
+        editor.commit();
         finish();
+        startActivity(intent);
+
 
     }
     @Override
@@ -401,6 +394,39 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            searchFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            searchFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    searchFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            searchFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
     }
 
 }

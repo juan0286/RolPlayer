@@ -11,17 +11,29 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".PruebasActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".PruebasRestFull"></activity>
+        <activity android:name=".PruebasRestFull" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="rolplayer.rolmanager.com.rolplayer.LoginActivity" />
+        </activity>
+        <activity android:name=".SalaEsperaActivity" />
+        <activity android:name=".IngresoActivity" />
+        <activity android:name=".BuscarCampaignsActivity"></activity>
     </application>
 
 </manifest>

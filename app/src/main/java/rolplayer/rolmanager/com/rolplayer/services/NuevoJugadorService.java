@@ -1,6 +1,8 @@
 package rolplayer.rolmanager.com.rolplayer.services;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -12,10 +14,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import rolplayer.rolmanager.com.rolplayer.PruebasRestFull;
 import rolplayer.rolmanager.com.rolplayer.beans.NuevoUsuarioJugador;
 
 /**
@@ -34,10 +39,6 @@ public class NuevoJugadorService {
         nuj.setEmail("jg.com");
         nuj.setName("pepe nuevo jugador");
         nuj.setId_firebase("askadksvcjsdjdh");
-
-    }
-
-    public void nuevojugador() {
 
     }
 

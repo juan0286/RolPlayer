@@ -30,4 +30,16 @@
     <string name="title_activity_reset_password"></string>
     <string name="common_signin_button_text_long">Loguearse con Google</string>
     <string name="repite_password">Repeat Password</string>
+    <string name="register_google">Register with Google</string>
+    <string name="bc_buscarPorMaster">Buscar por Nombre de Master</string>
+    <string name="bc_buscarPorCampaign">Buscar por nombre de Campaña</string>
+    <string name="search">Buscar</string>
+    <string name="addCampaign">Solicitar una Campaña</string>
+    <string name="updateCampaign">Actualizar Sala</string>
+    <string name="waitingRoom">Sala de Espera</string>
+    <string name="val_minimum4letters">Debe ingresar al menos 4 letras</string>
+    <string name="bc_notfound">No se hayaron campañas</string>
+    <string name="tittle_searchCampaigns">Buscar Campañas</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="se_instructions">Selecciona una campaña aprobada para ingresar, o solicita una nueva.</string>
 </resources>

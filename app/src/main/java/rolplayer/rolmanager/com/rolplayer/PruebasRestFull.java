@@ -32,7 +32,7 @@ import rolplayer.rolmanager.com.rolplayer.services.RolMediaSingleton;
 public class PruebasRestFull extends AppCompatActivity {
 
 
-    String URL_BASE = "http://192.168.0.11:8086/RoleMasterManager/";
+    final private String URL_BASE = getString(R.string.URL_BASE);
 
     Button put;
     Button get;

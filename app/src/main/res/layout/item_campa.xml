@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nombre master"
+        android:id="@+id/nombreMaster"
+        android:layout_below="@+id/nombre"
+        android:layout_toRightOf="@+id/menuItem_icono"
+        android:layout_toEndOf="@+id/menuItem_icono" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nombre"
+        android:id="@+id/nombre"
+        android:textSize="21sp"
+        android:textColor="#f65034"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/menuItem_icono"
+        android:layout_toEndOf="@+id/menuItem_icono" />
+
+    <ImageView
+        android:id="@+id/menuItem_icono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/view"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:maxHeight="35dp"
+        android:maxWidth="74dp"
+        android:src="@drawable/ic_menu_send" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@+id/nombreMaster"
+        android:id="@+id/view" />
+
+</RelativeLayout>

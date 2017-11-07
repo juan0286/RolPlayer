@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Campaña">
+            <menu>
+                <item
+                    android:id="@+id/historia"
+
+                    android:title="Historia" />
+                <item
+                    android:id="@+id/glosario"
+
+                    android:title="Glosario" />
+                <item
+                    android:id="@+id/personajes"
+
+                    android:title="Personajes" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Jugador">
+            <menu>
+                <item
+                    android:id="@+id/estado"
+
+                    android:title="Estado" />
+                <item
+                    android:id="@+id/mochila"
+
+                    android:title="Mochila" />
+                <item
+                    android:id="@+id/hoja"
+
+                    android:title="Hoja" />
+                <item
+                    android:id="@+id/sortilegios"
+
+                    android:title="Sortilegios" />
+                <item
+                    android:id="@+id/cajaExp"
+
+                    android:title="Experiencia" />
+
+            </menu>
+        </item>
+    </group>
+
+</menu>

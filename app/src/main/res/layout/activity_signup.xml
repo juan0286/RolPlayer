@@ -93,6 +93,14 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/registrer_google_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:text="@string/register_google" />
+
+
         <!-- Link to Login Screen -->
 
         <Button
